@@ -8,7 +8,6 @@ end
 sorteddata = sort(rawdata)
 
 for y in 200:-1:1
-    foundIt = false
     x = 1
     a = sorteddata[x]
     b = sorteddata[y]
@@ -28,7 +27,7 @@ for y in 200:-1:1
             println("Found it")
             println("a=", a)
             println("b=", b)
-            answer::Any = a * b
+            answer = a * b
             println("answer=", answer)
             exit(0)
         end
