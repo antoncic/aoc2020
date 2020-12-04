@@ -23,4 +23,15 @@ project repository and tracked in version control.
 ## Nice, cosy feeling
 Julia is **one-based**! Why on earth did we do zero-based in the other languaes?
 
+## Classes are called Composite Types
+Just create a **struct** or a **mutable struct**. A struct is imutable, hence the mutable struct.
+
+## Variable Scope
+Make sure to do anything usefull inside a function. Do not use global variables.
+
+## Regexp
+regexp are denoted by 
+```
+r"<some regexp>"
+```
 
