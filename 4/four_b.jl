@@ -1,3 +1,5 @@
+using Test
+
 requiredFields = ["byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"]
 
 mutable struct Passport
@@ -74,9 +76,10 @@ function isValidHcl(value)
     return matchResult != nothing && matchResult.match == value
 end
 
-function isValidEcl(value)
-    correctColors = ["amb", "blu", "brn", "gry", "grn", "hzl", "oth"]
-    return findfirst(isequal(value), correctColors) != nothing
+function isValidEcl(value) 
+    rx = r"amb|blu|brn|gry|grn|hzl|oth"
+    matchResult = match(rx, value)
+    return matchResult != nothing && matchResult.match == value 
 end
 
 function isValidPid(value)
@@ -87,7 +90,7 @@ end
 
 
 function validatePassport(p::Passport)
-    if(p.byr + p.iyr + p.eyr + p.hgt + p.hcl + p.ecl + p.pid) == 7
+    if p.byr + p.iyr + p.eyr + p.hgt + p.hcl + p.ecl + p.pid == 7
         p.isValid = true
     end
 end
@@ -181,5 +184,7 @@ end
 # println("\nEcl")
 # println(assertTrue(isValidEcl("brn")))
 # println(assertFalse(isValidEcl("bla")))
-# println(assertFalse(isValidEcl("asdf")))
+# println(assertFalse(isValidEcl("asdf")))'
+
+@test isValidEcl("asdf") == false
 
