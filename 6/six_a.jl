@@ -4,18 +4,19 @@ mutable struct Group
     Group() = new(0, zeros(Int,1,26))
 end
 
-function char2num(c::Char)
-    return codepoint(c) - 96
-end
+char2num(c::Char) = codepoint(c) - 96
 
-function num2char(n::Int)
-    return Char(n + 96)
-end
+num2char(n::Int) = Char(n + 96)
 
 function addGroupMember(line::String, group::Group)
     for yes in line
         group.yeses[char2num(yes)] += 1
     end
+    group.memberCount += 1
+end
+
+function addGroupMember2(line::String, group::Group) 
+    map(c -> (group.yeses[char2num(c)] += 1), collect(line))
     group.memberCount += 1
 end
 
@@ -29,6 +30,11 @@ function countAnyYeses(group)
     return result
 end
 
+function countAnyYeses2(group) 
+    mapreduce(yes -> yes >= 1 ? 1 : 0, +, group.yeses)
+end
+
+
 function countAllYeses(group)
     result = 0
     for yes in group.yeses
@@ -38,6 +44,7 @@ function countAllYeses(group)
     end
     return result
 end
+
 
 function collectGroups(fileName)
     groups = []
@@ -50,7 +57,7 @@ function collectGroups(fileName)
                 currentGroup = Group()
                 groupCounter += 1
             else
-                addGroupMember(line, currentGroup)
+                addGroupMember2(line, currentGroup)
             end
         end
     end
@@ -61,7 +68,7 @@ groups = collectGroups("data.txt")
 
 totalValidYeses = 0
 for group in groups
-    validGroupYeses = countAllYeses(group)
+    validGroupYeses = countAnyYeses2(group)
     global totalValidYeses += validGroupYeses
     println(group, " valid yeses =", validGroupYeses)
 end
