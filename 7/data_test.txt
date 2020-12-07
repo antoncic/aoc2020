@@ -1,4 +1,7 @@
-light gold bags contain 2 light lime bags, 1 faded green bag, 3 clear olive bags, 2 dim bronze bags.
-muted beige bags contain 3 clear lime bags, 5 dark salmon bags, 1 pale olive bag.
-vibrant violet bags contain 3 dark tomato bags, 3 muted indigo bags, 3 plaid turquoise bags, 3 light silver bags.
-dull purple bags contain 2 wavy turquoise bags.
+shiny gold bags contain 2 dark red bags.
+dark red bags contain 2 dark orange bags.
+dark orange bags contain 2 dark yellow bags.
+dark yellow bags contain 2 dark green bags.
+dark green bags contain 2 dark blue bags.
+dark blue bags contain 2 dark violet bags.
+dark violet bags contain no other bags.

@@ -4,8 +4,6 @@ mutable struct Rule
     Rule() = new("",Dict())
 end
 
-
-
 function parseLine(line)
     rule = Rule()
     containedBags = Dict()
@@ -23,35 +21,30 @@ function parseLine(line)
     end
     rule.containedBags = containedBags
     return rule
-
 end
 
-allRules = []
+allRules = Dict()
 open("data.txt") do file
     for line in eachline(file)
-        push!(allRules, parseLine(line))
+        rule = parseLine(line)
+        allRules[rule.color] = rule
     end
 end
 
-function countGoldenBags()
-    goldRelatedColors = Set()
-    currentColors = ["shinygold"]
-    while length(currentColors) != 0
-        newColors::Array{String} = []
-        for currColor in currentColors
-            for rule in allRules
-                if haskey(rule.containedBags, currColor)
-                    push!(newColors, rule.color)
-                end
-            end
+function countMyBags(rule)
+    # println("counting in ", rule.color, " bag")
+    if(length(rule.containedBags) != 0)
+        myBags = 0
+        for bag in rule.containedBags
+            color = bag[1]
+            count = bag[2]
+            # println(count, " " ,color)
+            myBags += count * (1 + countMyBags(allRules[color]))
         end
-        println(newColors)
-        for newColor in newColors
-            push!(goldRelatedColors, newColor)
-        end
-        currentColors = newColors
+        return myBags
+    else
+        return 0
     end
-    println(length(goldRelatedColors))
 end
 
-countGoldenBags()
+println(countMyBags(allRules["shinygold"]))
