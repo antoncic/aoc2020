@@ -27,14 +27,36 @@ function testNumberAtIndex(allNumbers, numberIndex, preambleLength)
     return result > 0
 end
 
-function findWeakness(file, preambleLength)
-    allNumbers = parseInput(file)
+function findWeaknessA(file, preambleLength, allNumbers)
     for n in preambleLength+1:length(allNumbers)
         # println(allNumbers[n])
         if !testNumberAtIndex(allNumbers,n,preambleLength)
             println("Found weaknes in ", allNumbers[n], " at index ", n)
+            return(n,allNumbers[n])
         end
     end
 end
-    
-findWeakness("data.txt", 25)
+
+function findWeaknessB(file, preambleLength)
+    allNumbers = parseInput(file)
+    ixA, numberToTest = findWeaknessA(file, preambleLength, allNumbers)
+    contiguousNumbers = []
+    for i in 1:ixA-1
+        for j in i+1:ixA-1
+            view = @view allNumbers[i:j]
+            sum = reduce(+, view)
+            if sum == numberToTest
+                println("SUCCESS! ", view, "=", sum )
+                return extremeSum(view)
+            end
+        end
+    end
+end
+
+function extremeSum(array)
+    min = findmin(array)[1]
+    max = findmax(array)[1]
+    return min+max
+end
+
+println("ExtremeSum=",findWeaknessB("data.txt", 25))

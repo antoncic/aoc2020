@@ -34,4 +34,11 @@ regexp are denoted by
 ```
 r"<some regexp>"
 ```
+## Stream operations
+map, reduce, mapreduce etc are rally powerful to run on collections
+
+## Views
+Really nice way to be able to work on an array as a view of a database table (kind of). 
+a = [1,2,3,4,5]
+v = @view a[2:4] -> v = [2,3,4]
 
