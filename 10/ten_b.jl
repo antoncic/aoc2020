@@ -86,9 +86,6 @@ function findNextConsecutiveRangeAndCalcuatePermutations(startIndex, allKeys, al
     return nextStart, permutations
 end
 
-
-    
-
 function solveProblemB()
     allAdaptersInBag = getAllAdaptersInBag("data.txt")
     allAdapters = addSocketAndDevice(allAdaptersInBag)
